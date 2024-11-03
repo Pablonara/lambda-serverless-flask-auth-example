@@ -1,0 +1,13 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - FLASK_ENV=production
+      - PYTHONUNBUFFERED=TRUE
+    # volumes:
+    #   - ./project:/var/task/project
+    command: ["gunicorn", "-b=:8080", "-w=1", "project.__init__:create_app()"] # NEED THE () OR IT DOESN'T WORK
